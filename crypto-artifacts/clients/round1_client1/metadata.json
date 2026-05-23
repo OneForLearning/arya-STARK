@@ -1,0 +1,9 @@
+{
+  "client_id": 1,
+  "round": 1,
+  "gradient_size": 7850,
+  "gradient_l2_norm": 0.8967190980911255,
+  "gradient_fp_size": 7850,
+  "proof_size_bytes": 28094,
+  "signature_size_bytes": 3309
+}

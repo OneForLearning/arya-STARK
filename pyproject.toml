@@ -1,0 +1,120 @@
+# =====================================================================
+# arya-STARK — Python project configuration
+# =====================================================================
+
+[build-system]
+requires      = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name            = "arya-stark"
+version         = "0.1.0"
+description     = "Aggregation-robust yet authentic federated training via zk-STARK proofs"
+readme          = "README.md"
+requires-python = ">=3.10"
+license         = { text = "MIT OR Apache-2.0" }
+authors         = [{ name = "arya-STARK authors" }]
+keywords        = [
+  "federated-learning", "zero-knowledge-proofs", "post-quantum",
+  "byzantine-robust", "stark", "ml-dsa", "dilithium",
+]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "License :: OSI Approved :: MIT License",
+  "Topic :: Security :: Cryptography",
+  "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+
+dependencies = [
+  # --- Core scientific stack ---
+  "numpy>=1.24,<3.0",
+  "scipy>=1.10",
+  "pandas>=2.0",
+
+  # --- Deep learning ---
+  "torch>=2.1",
+  "torchvision>=0.16",
+
+  # --- Datasets ---
+  "datasets>=2.14",
+
+  # --- Plotting ---
+  "matplotlib>=3.7",
+  "seaborn>=0.13",
+
+  # --- Configuration ---
+  "pydantic>=2.5",
+  "pyyaml>=6.0",
+  "tomli>=2.0",
+
+  # --- Post-quantum cryptography (Python bindings to liboqs) ---
+  "liboqs-python @ git+https://github.com/open-quantum-safe/liboqs-python.git",
+
+  # --- Utilities ---
+  "tqdm>=4.66",
+  "click>=8.1",
+  "rich>=13.7",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=7.4",
+  "pytest-cov>=4.1",
+  "pytest-xdist>=3.5",
+  "mypy>=1.7",
+  "ruff>=0.1",
+  "black>=23.11",
+  "ipython>=8.18",
+  "jupyterlab>=4.0",
+]
+plots = [
+  "plotly>=5.18",
+]
+gpu = [
+  "torch>=2.1",
+  # Note: install with `pip install torch --index-url https://download.pytorch.org/whl/cu121`
+]
+
+[project.scripts]
+arya-train = "arya_stark.experiments.run:main"
+
+[tool.setuptools.packages.find]
+where   = ["python"]
+include = ["arya_stark*"]
+
+# =====================================================================
+# Tooling
+# =====================================================================
+
+[tool.pytest.ini_options]
+testpaths            = ["python/tests"]
+python_files         = "test_*.py"
+addopts              = "-v --tb=short --strict-markers"
+markers              = [
+  "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+  "rust: requires Rust binaries to be built",
+  "integration: end-to-end integration tests",
+]
+
+[tool.ruff]
+line-length    = 100
+target-version = "py310"
+src            = ["python"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "N", "B", "UP", "RUF"]
+ignore = ["E501"]  # handled by black
+
+[tool.black]
+line-length    = 100
+target-version = ["py310", "py311"]
+
+[tool.mypy]
+python_version           = "3.10"
+strict                   = false
+warn_return_any          = true
+warn_unused_configs      = true
+disallow_untyped_defs    = false  # Will tighten later
+ignore_missing_imports   = true

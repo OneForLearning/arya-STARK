@@ -1,0 +1,40 @@
+[package]
+name         = "stark-prover"
+version      = { workspace = true }
+edition      = { workspace = true }
+authors      = { workspace = true }
+license      = { workspace = true }
+description  = "Winterfell-based zk-STARK prover for federated learning gradients (arya-STARK)"
+
+[lib]
+name       = "stark_prover"
+crate-type = ["lib"]
+
+[[bin]]
+name = "prove"
+path = "src/bin/prove.rs"
+
+[[bin]]
+name = "verify"
+path = "src/bin/verify.rs"
+
+[[bin]]
+name = "encoding-bench"
+path = "src/bin/encoding_bench.rs"
+
+[dependencies]
+winterfell    = { workspace = true }
+sha3          = { workspace = true }
+serde         = { workspace = true }
+serde_json    = { workspace = true }
+hex           = { workspace = true }
+clap          = { workspace = true }
+anyhow        = { workspace = true }
+thiserror     = { workspace = true }
+
+# Pinned transitive deps for cargo 1.75 compatibility
+constant_time_eq = { workspace = true }
+blake3           = { workspace = true }
+
+[dev-dependencies]
+proptest = { workspace = true }

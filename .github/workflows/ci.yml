@@ -1,0 +1,75 @@
+name: CI
+
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+    branches: [main]
+
+jobs:
+  python:
+    name: Python tests + lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install dev dependencies (config tests only — no torch)
+        run: |
+          python -m pip install --upgrade pip
+          pip install pytest ruff black
+
+      - name: Lint with ruff
+        run: ruff check python/arya_stark/config.py python/tests/
+
+      - name: Format check with black
+        run: black --check python/arya_stark/config.py python/tests/
+
+      - name: Run config tests
+        run: PYTHONPATH=python pytest python/tests/test_config.py -v
+
+  rust:
+    name: Rust tests + clippy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          components: clippy, rustfmt
+
+      - name: Cache cargo
+        uses: Swatinem/rust-cache@v2
+
+      - name: Install liboqs system dependency
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake libssl-dev ninja-build
+          # liboqs will be built by the oqs crate; pin a known version.
+
+      - name: Format check
+        run: cargo fmt --all -- --check
+
+      - name: Clippy
+        run: cargo clippy --workspace --all-targets -- -D warnings
+
+      - name: Build (release)
+        run: cargo build --workspace --release
+
+      - name: Run library tests
+        run: cargo test --workspace --lib
+
+  pipeline:
+    name: End-to-end smoke
+    needs: [python, rust]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Placeholder
+        run: echo "End-to-end smoke test will run from P3 onwards."

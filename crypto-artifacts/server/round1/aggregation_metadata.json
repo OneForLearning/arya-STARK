@@ -1,0 +1,6 @@
+{
+  "round": 1,
+  "num_clients": 3,
+  "aggregation_method": "FedAvg",
+  "aggregated_l2_norm": 0.4478495717048645
+}

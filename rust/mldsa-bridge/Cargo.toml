@@ -1,0 +1,23 @@
+[package]
+name         = "mldsa-bridge"
+version      = { workspace = true }
+edition      = { workspace = true }
+authors      = { workspace = true }
+license      = { workspace = true }
+description  = "ML-DSA-65 (FIPS 204) signing/verification bridge for arya-STARK, on top of liboqs"
+
+[lib]
+name       = "mldsa_bridge"
+crate-type = ["lib"]
+
+[[bin]]
+name = "mldsa-cli"
+path = "src/bin/mldsa_cli.rs"
+
+[dependencies]
+oqs        = { workspace = true }
+serde      = { workspace = true }
+serde_json = { workspace = true }
+hex        = { workspace = true }
+anyhow     = { workspace = true }
+thiserror  = { workspace = true }
