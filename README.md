@@ -695,4 +695,4 @@ echo "  scripts/benchmark_full_gradient.py"
 
 ## License
 
-Dual-licensed under MIT and Apache-2.0.
+Dual-licence : GNU AGPL-3.0 and Commons Clause
