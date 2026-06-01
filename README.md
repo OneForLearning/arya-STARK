@@ -367,17 +367,6 @@ arya-stark/
 
 ## 🔬 For Researchers
 
-### Citing This Work
-
-```bibtex
-@inproceedings{arya-stark-2026,
-  title={arya-STARK: Aggregation-Robust Yet Authentic Training via STARK Proofs},
-  author={Your Name},
-  booktitle={IEEE Computer Security Foundations Symposium (CSF)},
-  year={2026}
-}
-```
-
 ### Technical Details
 
 **STARK Construction:**
@@ -464,9 +453,7 @@ Contributions welcome! Please:
 ## 📧 Contact
 
 For questions, bug reports, or collaborations:
-- **Issues**: https://github.com/your-org/arya-stark/issues
-- **Discussions**: https://github.com/your-org/arya-stark/discussions
-- **Email**: your.email@university.edu
+- **Email**: fal.abdoulahad@gmail.Com
 
 ---
 
